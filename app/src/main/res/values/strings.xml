@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Film Library</string>
+    <string name="settings_name">SETTINGS</string>
 </resources>
