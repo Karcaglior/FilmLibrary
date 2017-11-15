@@ -1,5 +1,6 @@
 package com.example.antoniomoranmunoz.filmlibrary;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EXTRA_ITEM_TITLE = "extra.item.title";
     public static final String SECTION_LIBRARY = "Library";
     public static final String SECTION_CINEMA = "Cinema";
     public static final String SECTION_PEOPLE = "People";
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadDetailSection(String sectionTitle) {
+        Intent intent = new Intent(MainActivity.this, CinemaActivity.class);
+        intent.putExtra(MainActivity.EXTRA_ITEM_TITLE, sectionTitle);
+        startActivity(intent);
 
     }
 
