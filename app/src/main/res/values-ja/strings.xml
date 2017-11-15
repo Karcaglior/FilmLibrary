@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Konnichiwa</string>
-    <string name="library">TOSHOKAN</string>
-    <string name="cinema">EIGA</string>
-    <string name="people">HITOBITO</string>
+    <string name="library">図書館</string>
+    <string name="cinema">映画</string>
+    <string name="people">人々</string>
 </resources>

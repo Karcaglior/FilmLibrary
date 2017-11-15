@@ -21,4 +21,8 @@
 
     </item>
 
+    <item
+        android:id="@+id/action_theme"
+        android:title="THEME"
+        app:showAsAction="always"/>
 </menu>
