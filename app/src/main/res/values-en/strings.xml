@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">HELLO</string>
+    <string name="library">LIBRARY</string>
+    <string name="cinema">CINEMA</string>
+    <string name="people">PEOPLE</string>
+</resources>

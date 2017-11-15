@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Konnichiwa</string>
+    <string name="library">TOSHOKAN</string>
+    <string name="cinema">EIGA</string>
+    <string name="people">HITOBITO</string>
+</resources>

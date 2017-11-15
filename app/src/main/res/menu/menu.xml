@@ -7,4 +7,18 @@
         app:showAsAction="never">
 
     </item>
+    <item
+        android:id="@+id/language_en"
+        android:title="English"
+        app:showAsAction="never">
+
+    </item>
+
+    <item
+        android:id="@+id/language_ja"
+        android:title="Japanese"
+        app:showAsAction="never">
+
+    </item>
+
 </menu>
