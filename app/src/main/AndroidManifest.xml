@@ -28,7 +28,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.antoniomoranmunoz.filmlibrary.MainActivity" />
         </activity>
-        <activity android:name=".ThemeActivity"></activity>
+        <activity
+            android:name=".ThemeActivity"
+            android:label="@string/theme">
+        </activity>
     </application>
 
 </manifest>

@@ -4,4 +4,7 @@
     <string name="library">図書館</string>
     <string name="cinema">映画</string>
     <string name="people">人々</string>
+    <string name="theme">テーマ</string>
+    <string name="login">ログイン</string>
+    <string name="create">アカウントを作成する</string>
 </resources>

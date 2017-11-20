@@ -10,10 +10,12 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -32,9 +34,15 @@ public class MainActivity extends AppCompatActivity {
     public static final String SECTION_CINEMA = "Cinema";
     public static final String SECTION_PEOPLE = "People";
 
+    RelativeLayout libraryBtn;
+    RelativeLayout cinemaBtn;
+    RelativeLayout peopleBtn;
+
     TextView libraryText;
     TextView cinemaText;
     TextView peopleText;
+    Button loginBtn;
+    Button createBtn;
 
     SeekBar seekBar;
     boolean success = false;
@@ -84,13 +92,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RelativeLayout libraryBtn = (RelativeLayout)findViewById(R.id.libraryBtn);
-        RelativeLayout cinemaBtn = (RelativeLayout)findViewById(R.id.cinemaBtn);
-        RelativeLayout peopleBtn = (RelativeLayout)findViewById(R.id.peopleBtn);
+        libraryBtn = (RelativeLayout)findViewById(R.id.libraryBtn);
+        cinemaBtn = (RelativeLayout)findViewById(R.id.cinemaBtn);
+        peopleBtn = (RelativeLayout)findViewById(R.id.peopleBtn);
 
         libraryText = (TextView)findViewById(R.id.libraryText);
         cinemaText = (TextView)findViewById(R.id.cinemaText);
         peopleText = (TextView)findViewById(R.id.peopleText);
+        loginBtn = (Button)findViewById(R.id.loginBtn);
+        createBtn = (Button)findViewById(R.id.createBtn);
 
         Paper.init(this);
 
@@ -182,6 +192,8 @@ public class MainActivity extends AppCompatActivity {
         libraryText.setText(resources.getString(R.string.library));
         cinemaText.setText(resources.getString(R.string.cinema));
         peopleText.setText(resources.getString(R.string.people));
+        loginBtn.setText(resources.getString(R.string.login));
+        createBtn.setText(resources.getString(R.string.create));
     }
 
     public void loadDetailSection(String sectionTitle) {
