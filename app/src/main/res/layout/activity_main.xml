@@ -5,7 +5,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_english"
+    android:background="@color/colorPrimary1"
     tools:context="com.example.antoniomoranmunoz.filmlibrary.MainActivity">
 
     <RelativeLayout
@@ -137,5 +137,15 @@
         android:text="@string/create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageBg"
+        android:layout_width="wrap_content"
+        android:layout_height="192dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar"
+        app:srcCompat="@drawable/kingkong" />
 
 </android.support.constraint.ConstraintLayout>

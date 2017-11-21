@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.speech.tts.TextToSpeech;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -47,10 +50,20 @@ public class MainActivity extends AppCompatActivity {
     Button loginBtn;
     Button createBtn;
 
-    ConstraintLayout mainLayout;
+    ImageView imageBg;
 
+    ConstraintLayout mainLayout;
+    Toolbar toolbar;
+
+
+    //BRIGHTNESS
     SeekBar seekBar;
     boolean success = false;
+
+    //VOICEOVER
+    TextToSpeech toSpeech;
+    int result;
+    String text;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -63,9 +76,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        //VOICEOVER
+        toSpeech = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status==TextToSpeech.SUCCESS) {
+                    result = toSpeech.setLanguage(Locale.UK); //TRY TO CHANGE TO LOCALE_HELPER
+                } else {
+                    Toast.makeText(getApplicationContext(), "Feature not supported in your device", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
+
+        //BRIGHTNESS
         seekBar = (SeekBar)findViewById(R.id.seekBar);
         seekBar.setMax(255);
         seekBar.setProgress(getBrightness());
@@ -107,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
         loginBtn = (Button)findViewById(R.id.loginBtn);
         createBtn = (Button)findViewById(R.id.createBtn);
 
+        imageBg = (ImageView)findViewById(R.id.imageBg);
+
         mainLayout = (ConstraintLayout)findViewById(R.id.mainLayout);
 
         Paper.init(this);
@@ -121,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         libraryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TTS(libraryBtn);
                 Intent intent = new Intent(MainActivity.this, LibraryActivity.class);
                 startActivity(intent);
             }
@@ -129,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         cinemaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TTS(cinemaBtn);
                 loadDetailSection(MainActivity.SECTION_CINEMA);
             }
         });
@@ -136,11 +169,86 @@ public class MainActivity extends AppCompatActivity {
         peopleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TTS(peopleBtn);
+                loadDetailSection(MainActivity.SECTION_PEOPLE);
+            }
+        });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TTS(loginBtn);
+                loadDetailSection(MainActivity.SECTION_PEOPLE);
+            }
+        });
+
+        createBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TTS(createBtn);
                 loadDetailSection(MainActivity.SECTION_PEOPLE);
             }
         });
     }
 
+    //VOICEOVER
+    public void TTS(View view) {
+        switch (view.getId()) {
+            case R.id.libraryBtn:
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(getApplicationContext(), "Feature not supported in your device", Toast.LENGTH_SHORT).show();
+                } else {
+                    text = libraryText.getText().toString();
+                    toSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                }
+                break;
+            case R.id.cinemaBtn:
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(getApplicationContext(), "Feature not supported in your device", Toast.LENGTH_SHORT).show();
+                } else {
+                    text = cinemaText.getText().toString();
+                    toSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                }
+                break;
+            case R.id.peopleBtn:
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(getApplicationContext(), "Feature not supported in your device", Toast.LENGTH_SHORT).show();
+                } else {
+                    text = peopleText.getText().toString();
+                    toSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                }
+                break;
+            case R.id.loginBtn:
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(getApplicationContext(), "Feature not supported in your device", Toast.LENGTH_SHORT).show();
+                } else {
+                    text = loginBtn.getText().toString();
+                    toSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                }
+                break;
+            case R.id.createBtn:
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(getApplicationContext(), "Feature not supported in your device", Toast.LENGTH_SHORT).show();
+                } else {
+                    text = createBtn.getText().toString();
+                    toSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                }
+                break;
+            case R.id.action_theme:
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(getApplicationContext(), "Feature not supported in your device", Toast.LENGTH_SHORT).show();
+                } else {
+                    text = "Changed theme";
+                    toSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                }
+                break;
+        }
+    }
+
+    //END VOICEOVER
+
+
+    //BRIGHTNESS
     private void setBrightness(int brigthness) {
         if(brigthness<0) {
             brigthness = 0;
@@ -179,6 +287,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //END BRIGHTNESS
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 1000) {
@@ -193,6 +303,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    //LANGUAGE CHANGE
     private void updateView(String lang) {
         Context context = LocaleHelper.setLocale(this, lang);
 
@@ -204,6 +316,8 @@ public class MainActivity extends AppCompatActivity {
         createBtn.setText(resources.getString(R.string.create));
     }
 
+    //END LANGUAGE CHANGE
+
     public void loadDetailSection(String sectionTitle) {
         Intent intent = new Intent(MainActivity.this, CinemaActivity.class);
         intent.putExtra(MainActivity.EXTRA_ITEM_TITLE, sectionTitle);
@@ -211,6 +325,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    //OPTIONS MENU
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -221,9 +337,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.language_en) {
+            Resources resources = getResources();
+            imageBg.setImageDrawable(resources.getDrawable(R.drawable.kingkong));
             Paper.book().write("language", "en");
             updateView((String)Paper.book().read("language"));
         } else if(item.getItemId() == R.id.language_ja) {
+            Resources resources = getResources();
+            imageBg.setImageDrawable(resources.getDrawable(R.drawable.godzilla2));
             Paper.book().write("language", "ja");
             updateView((String)Paper.book().read("language"));
         } else if(item.getItemId() == R.id.action_settings) {
@@ -231,8 +351,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else if(item.getItemId() == R.id.action_theme) {
             //Intent intent = new Intent(MainActivity.this, ThemeActivity.class);
+            TTS(toolbar);
             int i = 0;
             if(i%2 == 0) {
+                mainLayout.setBackgroundColor(Color.DKGRAY);
                 loginBtn.setBackgroundColor(Color.BLACK);
                 loginBtn.setTextColor(Color.WHITE);
                 createBtn.setBackgroundColor(Color.BLACK);
@@ -245,6 +367,7 @@ public class MainActivity extends AppCompatActivity {
                 peopleText.setTextColor(Color.WHITE);
                 i++;
 
+
             } else {
                 loginBtn.setBackgroundColor(Color.WHITE);
                 loginBtn.setTextColor(Color.BLACK);
@@ -256,12 +379,20 @@ public class MainActivity extends AppCompatActivity {
                 cinemaText.setTextColor(Color.BLACK);
                 peopleBtn.setBackgroundColor(Color.WHITE);
                 peopleText.setTextColor(Color.BLACK);
+
                 i++;
+
 
             }
             //startActivity(intent);
         }
 
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
     }
 }
