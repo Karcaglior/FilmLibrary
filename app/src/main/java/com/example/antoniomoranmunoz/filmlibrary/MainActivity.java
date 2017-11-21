@@ -4,9 +4,12 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     TextView peopleText;
     Button loginBtn;
     Button createBtn;
+
+    ConstraintLayout mainLayout;
 
     SeekBar seekBar;
     boolean success = false;
@@ -102,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         loginBtn = (Button)findViewById(R.id.loginBtn);
         createBtn = (Button)findViewById(R.id.createBtn);
 
+        mainLayout = (ConstraintLayout)findViewById(R.id.mainLayout);
+
         Paper.init(this);
 
         String language = Paper.book().read("language");
@@ -114,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
         libraryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadDetailSection(MainActivity.SECTION_LIBRARY);
+                Intent intent = new Intent(MainActivity.this, LibraryActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -222,8 +230,36 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
         } else if(item.getItemId() == R.id.action_theme) {
-            Intent intent = new Intent(MainActivity.this, ThemeActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(MainActivity.this, ThemeActivity.class);
+            int i = 0;
+            if(i%2 == 0) {
+                loginBtn.setBackgroundColor(Color.BLACK);
+                loginBtn.setTextColor(Color.WHITE);
+                createBtn.setBackgroundColor(Color.BLACK);
+                createBtn.setTextColor(Color.WHITE);
+                libraryBtn.setBackgroundColor(Color.BLACK);
+                libraryText.setTextColor(Color.WHITE);
+                cinemaBtn.setBackgroundColor(Color.BLACK);
+                cinemaText.setTextColor(Color.WHITE);
+                peopleBtn.setBackgroundColor(Color.BLACK);
+                peopleText.setTextColor(Color.WHITE);
+                i++;
+
+            } else {
+                loginBtn.setBackgroundColor(Color.WHITE);
+                loginBtn.setTextColor(Color.BLACK);
+                createBtn.setBackgroundColor(Color.WHITE);
+                createBtn.setTextColor(Color.BLACK);
+                libraryBtn.setBackgroundColor(Color.WHITE);
+                libraryText.setTextColor(Color.BLACK);
+                cinemaBtn.setBackgroundColor(Color.WHITE);
+                cinemaText.setTextColor(Color.BLACK);
+                peopleBtn.setBackgroundColor(Color.WHITE);
+                peopleText.setTextColor(Color.BLACK);
+                i++;
+
+            }
+            //startActivity(intent);
         }
 
         return true;

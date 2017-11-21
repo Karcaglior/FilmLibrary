@@ -4,6 +4,7 @@
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:title="@string/app_name"
     app:popupTheme="@style/CustomPopupTheme"
     app:theme="@style/CustomToolBarStyle"
     app:titleTextColor="@android:color/background_light">

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.antoniomoranmunoz.filmlibrary">
 
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".MainApplication"
@@ -30,7 +30,24 @@
         </activity>
         <activity
             android:name=".ThemeActivity"
-            android:label="@string/theme">
+            android:label="@string/theme" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.antoniomoranmunoz.filmlibrary.MainActivity" />
+        </activity>
+        <activity
+            android:name=".LibraryActivity"
+            android:label="@string/title_activity_library"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.antoniomoranmunoz.filmlibrary.MainActivity" />
         </activity>
     </application>
 
